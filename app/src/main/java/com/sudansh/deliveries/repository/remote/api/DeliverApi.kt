@@ -11,4 +11,7 @@ interface DeliverApi {
 
     @GET()
     fun getDeliveries(@Url url: String = "https://api.myjson.com/bins/gut34"): LiveData<ApiResponse<List<DeliveryItem>>>
+
+//    @GET("deliveries")
+//    fun getDeliveries(@Query("offset") offset: Int? = null): LiveData<ApiResponse<List<DeliveryItem>>>
 }
