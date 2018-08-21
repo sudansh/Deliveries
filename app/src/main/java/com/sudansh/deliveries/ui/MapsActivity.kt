@@ -34,7 +34,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         delivery?.let {
             val markerLocation = LatLng(it.location.lat, it.location.lng)
             mMap.addMarker(MarkerOptions().position(markerLocation))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(markerLocation))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLocation, 16.0f))
             binding.view!!.data = delivery
         }
     }
