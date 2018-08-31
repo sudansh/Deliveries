@@ -1,6 +1,7 @@
 package com.sudansh.deliveries.ui
 
 import android.databinding.DataBindingUtil
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import com.sudansh.deliveries.R
 import com.sudansh.deliveries.databinding.ItemDeliveryBinding
 import com.sudansh.deliveries.repository.local.db.entity.DeliveryItem
+
 
 class DeliverAdapter(private var callback: OnItemClickListener) : RecyclerView.Adapter<DeliverViewHolder>() {
     private val listDelivery: MutableList<DeliveryItem> = mutableListOf()
@@ -34,10 +36,11 @@ class DeliverAdapter(private var callback: OnItemClickListener) : RecyclerView.A
         binding.executePendingBindings()
     }
 
-    fun setItems(list: List<DeliveryItem>) {
+    fun updateItems(data: List<DeliveryItem>) {
+        val diffResult = DiffUtil.calculateDiff(DeliverDiffUtil(data, listDelivery))
         listDelivery.clear()
-        listDelivery.addAll(list)
-        notifyItemChanged(0, listDelivery.size)
+        listDelivery.addAll(data)
+        diffResult.dispatchUpdatesTo(this)
     }
 }
 

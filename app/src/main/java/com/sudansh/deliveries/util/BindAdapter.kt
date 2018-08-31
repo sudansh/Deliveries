@@ -12,7 +12,7 @@ fun setImage(view: ImageView, url: String?) {
     GlideApp.with(view)
             .load(url)
             .placeholder(R.drawable.ic_placeholder)
-            .override(50)
+            .override(200)
             .into(view)
 }
 

@@ -26,7 +26,6 @@ import org.koin.android.architecture.ext.viewModel
 
 
 class MainActivity : AppCompatActivity(), OnItemClickListener {
-
     private val viewModel by viewModel<MainViewModel>()
     private val deliverAdapter by lazy { DeliverAdapter(this) }
     private lateinit var binding: ActivityMainBinding
@@ -46,6 +45,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
             addItemDecoration(divider)
             itemAnimator = SlideInUpAnimator()
         }
+        swipe.setOnRefreshListener(viewModel::refresh)
 
         viewModel.deliveries.observeNonNull(this) {
             updateUI(it)
@@ -55,11 +55,13 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
     private fun updateUI(resource: Resource<List<DeliveryItem>>) {
         when (resource.status) {
             Status.SUCCESS -> {
-                deliverAdapter.setItems(resource.data.orEmpty())
+                if (swipe.isRefreshing) swipe.isRefreshing = false
+                deliverAdapter.updateItems(resource.data.orEmpty())
                 viewModel.isLoading.set(false)
             }
             Status.LOADING -> viewModel.isLoading.set(true)
             Status.ERROR -> {
+                if (swipe.isRefreshing) swipe.isRefreshing = false
                 viewModel.isLoading.set(false)
                 showError()
             }

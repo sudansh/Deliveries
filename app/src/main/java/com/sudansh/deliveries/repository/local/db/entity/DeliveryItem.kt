@@ -16,7 +16,6 @@ data class DeliveryItem(
         val imageUrl: String
 ) : Parcelable
 
-@Entity
 @Parcelize
 data class Location(
         @SerializedName("lat") val lat: Double,

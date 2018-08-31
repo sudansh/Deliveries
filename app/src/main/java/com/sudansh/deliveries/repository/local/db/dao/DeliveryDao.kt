@@ -14,7 +14,7 @@ interface DeliveryDao {
     fun getDeliveries(): LiveData<List<DeliveryItem>>
 
     @Query("SELECT * FROM deliveries WHERE id= :id")
-    fun findDeliveryById(id: Int): LiveData<List<DeliveryItem>>
+    fun findDeliveryById(id: Int): LiveData<DeliveryItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(deliveryItem: DeliveryItem)

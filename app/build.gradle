@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-allopen'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'com.sudansh.deliveries.testing.OpenForTesting'
+}
 
 android {
     compileSdkVersion 28
@@ -29,6 +35,7 @@ android {
             coroutines 'enable'
         }
     }
+
     testOptions {
         unitTests.returnDefaultValues = true
     }
@@ -47,6 +54,9 @@ ext {
     retrofit = '2.4.0'
     room = '1.1.1'
     glide = '4.8.0'
+    mockito = "2.7.19"
+    lifecycle = "1.1.1"
+    espresso = '3.0.1'
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -54,7 +64,9 @@ dependencies {
     kapt "com.android.databinding:compiler:$android_plugin_version"
 
     //android arch
-    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:extensions:$lifecycle"
+    testImplementation "android.arch.core:core-testing:$lifecycle"
+    androidTestImplementation "android.arch.core:core-testing:$lifecycle"
 
     //map
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
@@ -81,12 +93,25 @@ dependencies {
     implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
 
     //Koin
+    implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-architecture:$koin_version"
+    testImplementation "org.koin:koin-test:$koin_version"
+    androidTestImplementation "org.koin:koin-test:$koin_version"
 
-
+    //mockito
+    testImplementation "org.mockito:mockito-core:$mockito"
+    androidTestImplementation "org.mockito:mockito-android:$mockito"
     testImplementation 'com.squareup.okhttp3:mockwebserver:3.11.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+
+    //espresso
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espresso"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso", {
         exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:$espresso", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
 }

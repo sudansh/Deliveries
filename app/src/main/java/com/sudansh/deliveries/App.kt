@@ -10,11 +10,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
         startKoin(listOf(appModule, remoteModule, localModule))
     }
 
-    companion object {
-        lateinit var instance: App
-    }
 }

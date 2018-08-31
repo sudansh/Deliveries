@@ -22,9 +22,9 @@ fun <X, Y> LiveData<X>.switch(transform: (x: X) -> LiveData<Y>): LiveData<Y> {
 }
 
 
-inline fun View.snack(message: String, length: Int = Snackbar.LENGTH_LONG, f: Snackbar.() -> Unit = {}) {
+inline fun View.snack(message: String, length: Int = Snackbar.LENGTH_LONG, action: Snackbar.() -> Unit = {}) {
     val snack = Snackbar.make(this, message, length)
-    snack.f()
+    snack.action()
     snack.show()
 }
 

@@ -14,22 +14,16 @@ import java.util.concurrent.Executors
  */
 open class AppExecutors(
         private val diskIO: Executor,
-        private val networkIO: Executor,
         private val mainThread: Executor
 ) {
 
     constructor() : this(
             Executors.newSingleThreadExecutor(),
-            Executors.newFixedThreadPool(THREAD_POOL_SIZE),
             MainThreadExecutor()
     )
 
     fun diskIO(): Executor {
         return diskIO
-    }
-
-    fun networkIO(): Executor {
-        return networkIO
     }
 
     fun mainThread(): Executor {
@@ -41,9 +35,5 @@ open class AppExecutors(
         override fun execute(command: Runnable) {
             mainThreadHandler.post(command)
         }
-    }
-
-    companion object {
-        const val THREAD_POOL_SIZE = 3 // disk+network+main
     }
 }

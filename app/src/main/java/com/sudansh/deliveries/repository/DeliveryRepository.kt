@@ -8,7 +8,9 @@ import com.sudansh.deliveries.data.Resource
 import com.sudansh.deliveries.repository.local.db.dao.DeliveryDao
 import com.sudansh.deliveries.repository.local.db.entity.DeliveryItem
 import com.sudansh.deliveries.repository.remote.api.DeliverApi
+import com.sudansh.deliveries.testing.OpenForTesting
 
+@OpenForTesting
 class DeliveryRepository(
         val appExecutors: AppExecutors,
         val deliveryDao: DeliveryDao,
