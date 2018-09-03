@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "deliveries")
 @Parcelize
-data class DeliveryItem(
+data class  DeliveryItem(
         @PrimaryKey(autoGenerate = true) val id: Int,
         val description: String,
         @Embedded val location: Location,
