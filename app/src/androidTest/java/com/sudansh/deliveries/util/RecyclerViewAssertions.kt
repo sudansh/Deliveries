@@ -9,7 +9,7 @@ object RecyclerViewAssertions {
     fun isNotEmpty(): ViewAssertion {
         return ViewAssertion { view, e ->
             if (view !is RecyclerView) throw e
-            Assert.assertTrue(view.adapter.itemCount > 0)
+            Assert.assertTrue(view.adapter?.itemCount ?: 0 > 0)
         }
     }
 }

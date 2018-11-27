@@ -29,13 +29,6 @@ android {
     androidExtensions {
         experimental = true
     }
-
-    kotlin {
-        experimental {
-            coroutines 'enable'
-        }
-    }
-
     testOptions {
         unitTests.returnDefaultValues = true
     }
@@ -50,7 +43,7 @@ android {
 }
 ext {
     supportLib = '28.0.0'
-    koin_version = '0.9.3'
+    koin_version = '1.0.0'
     retrofit = '2.4.0'
     room = '1.1.1'
     glide = '4.8.0'
@@ -93,9 +86,9 @@ dependencies {
 
     //Koin
     implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-android-architecture:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
     testImplementation "org.koin:koin-test:$koin_version"
-    androidTestImplementation "org.koin:koin-test:$koin_version"
+    androidTestImplementation("org.koin:koin-test:$koin_version") { exclude group: 'org.mockito' }
 
     //mockito
     testImplementation "org.mockito:mockito-core:$mockito"

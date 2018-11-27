@@ -22,7 +22,7 @@ import com.sudansh.deliveries.util.observeNonNull
 import com.sudansh.deliveries.util.snack
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.architecture.ext.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class MainActivity : AppCompatActivity(), OnItemClickListener {

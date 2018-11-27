@@ -10,7 +10,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin(listOf(appModule, remoteModule, localModule))
+        startKoin(this, listOf(appModule, remoteModule, localModule))
     }
 
 }
