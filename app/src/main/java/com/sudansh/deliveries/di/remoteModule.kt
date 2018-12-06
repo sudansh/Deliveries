@@ -3,14 +3,14 @@ package com.sudansh.deliveries.di
 import com.sudansh.deliveries.data.LiveDataCallAdapterFactory
 import com.sudansh.deliveries.repository.remote.api.DeliverApi
 import okhttp3.OkHttpClient
-import org.koin.dsl.module.applicationContext
+import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-val remoteModule = applicationContext {
-    bean { createOkHttpClient() }
-    bean { createWebService<DeliverApi>(get()) }
+val remoteModule = module {
+    single { createOkHttpClient() }
+    single { createWebService<DeliverApi>(get()) }
 }
 
 fun createOkHttpClient(): OkHttpClient {
